@@ -3,21 +3,24 @@ import jsonData from '../data.json';
 
 function SearchBar(props) {
 
-    const [searchStore,setSearchStore] = useState("")
-    const [products, setProducts] = useState(jsonData);
-    const [filterProducts, setFilterProducts] = useState(jsonData);
+    const [search, setSearch] = useState('')
+
+    const [isChecked, setIsChecked] = useState(false)
+    
+    const searchChange = (event) => {
+    setSearch(event.target.value)
+    props.findProduct(event.target.value)
+    }
     
     return (
       <div>
           <label>Search: </label>
-          <input type="text" name="search" value={searchStore} onChange={(event) => {
-                const newList = products.filter(singleProduct => {
-                return singleProduct.toLowerCase().includes(event.target.value.toLowerCase())
-            })
-                console.log(newList)
-                setFilterProducts(newList)
-            }}
-          />
+          <input onChange = {searchChange} type="text" value={search}/>
+
+          <input type="checkbox" value={isChecked} onChange={(e) => {
+                    setIsChecked(!isChecked)
+                    props.itemsStock(!isChecked) }}/>
+            <p>Click the check box above to see only the items in stock!</p>   
           
       </div>
     );

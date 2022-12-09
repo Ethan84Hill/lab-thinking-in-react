@@ -1,10 +1,24 @@
 import ProductRow from "./ProductRow";
 
-function ProductTable() {
+function ProductTable(props) {
     return (
         <div>
-            <h1>hi there</h1>
-            <ProductRow />
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Product Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {props.products.map((singleProduct => {
+                    return <ProductRow 
+                    price = {singleProduct.price}
+                    name = {singleProduct.name}
+                    inStock = {singleProduct.inStock} />
+                 }))}
+                </tbody>
+            </table>
         </div>
     )
 }
